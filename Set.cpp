@@ -1,5 +1,7 @@
 #include<iostream>
 #include<vector>
+#include<set>
+#include<time.h>
 #define RED 0
 #define BLACK 1
 using namespace std;
@@ -56,7 +58,7 @@ void right_rotate(node ** root, node * g_parent){
 			g_parent->parent->right=new_parent;
 		}
 	}
-	new_parent->parent=g_parent;//changed
+	new_parent->parent=g_parent->parent;//changed
 	g_parent->parent=new_parent;	
 	g_parent->left = new_parent->right;
 	if(new_parent->right!=NULL){
@@ -77,7 +79,7 @@ void left_rotate(node ** root, node * g_parent){
 			g_parent->parent->left=new_parent;
 		}
 	}
-	new_parent->parent=g_parent;//changed
+	new_parent->parent=g_parent->parent;//changed
 	g_parent->parent=new_parent;	
 	g_parent->right = new_parent->left;
 	if(new_parent->left!=NULL){
@@ -132,7 +134,7 @@ void correct_red_red(node ** root, node * new_node){
 			}
 			else if(g_parent->right==parent && parent->left==new_node){
 				//RL
-				right_rotate(root, parent);
+				right_rotate(root, parent); //to convert this problem into RR problem;
 				int t = g_parent->color;
 				g_parent->color=new_node->color;
 				new_node->color=t;
@@ -355,6 +357,7 @@ int main(){
 	s1.insert(100);
 	// print(s1);
 
+	time_t b = clock();
 	Set tree;
 	// s2.insert(8);
 	// s2.insert(30);
@@ -362,48 +365,75 @@ int main(){
 	// // s2.insert(7);
 	// s1.insert(100);
 	// print(s2);
-	tree.insert(7); 
+	tree.insert(2); 
+  tree.insert(1); 
+  tree.insert(4); 
+  tree.insert(5); 
+  tree.insert(9); 
   tree.insert(3); 
-  tree.insert(18); 
-  tree.insert(10); 
-  tree.insert(22); 
-  tree.insert(8); 
-  tree.insert(11); 
-  tree.insert(26); 
-  tree.insert(2); 
   tree.insert(6); 
-  tree.insert(13);
-  print(tree); 
+  tree.insert(7); 
+  // tree.insert(2); 
+  // tree.insert(6); 
+  // tree.insert(13);
+  time_t e = clock()-b;
+  cout<<"Time taken by our set: "<<(e)<<endl;
+  print(tree);
 
-  Set su = Union(tree,s);
-  cout<<endl;
-  print(su);
 
-  cout<<endl;
+  time_t b1 = clock();
+	set<int> t;
+	// s2.insert(8);
+	// s2.insert(30);
+	// s2.insert(78);
+	// // s2.insert(7);
+	// s1.insert(100);
+	// print(s2);
+	//2, 1, 4, 5, 9, 3, 6, 7
+	t.insert(2); 
+  t.insert(1); 
+  t.insert(4); 
+  t.insert(5); 
+  t.insert(9); 
+  t.insert(3); 
+  t.insert(6); 
+  t.insert(7); 
+  // t.insert(2); 
+  // t.insert(6); 
+  // t.insert(13);
+  time_t e1 = clock()-b1;
+  cout<<"Time taken by STL set: "<<(e1)<<endl;
+  // print(tree);  
 
-  Set tree1;
-  tree1.insert(2); 
-  // print(tree1); cout<<endl;
-  tree1.insert(3); 
-  // print(tree1); cout<<endl;
+  // Set su = Union(tree,s);
+  // cout<<endl;
+  // print(su);
 
-  tree1.insert(6); 
-  // print(tree1); cout<<endl;
+  // cout<<endl;
 
-  tree1.insert(7); 
-  // print(tree1); cout<<endl;
+  // Set tree1;
+  // tree1.insert(2); 
+  // // print(tree1); cout<<endl;
+  // tree1.insert(3); 
+  // // print(tree1); cout<<endl;
 
-  tree1.insert(8); 
-  // tree1.insert(10); 
+  // tree1.insert(6); 
+  // // print(tree1); cout<<endl;
+
+  // tree1.insert(7); 
+  // // print(tree1); cout<<endl;
+
+  // tree1.insert(8); 
+  // // tree1.insert(10); 
   // tree1.insert(11); 
   // tree1.insert(13); 
   // tree1.insert(18); 
   // tree1.insert(22); 
-  tree1.insert(26);
-  print(tree1);
+  // tree1.insert(26);
+  // print(tree1);
 
-  Set t = Difference(tree,tree1);
-  cout<<endl;
-  print(t);
+  // Set t = Difference(tree,tree1);
+  // cout<<endl;
+  // print(t);
 	return 0;
 }
