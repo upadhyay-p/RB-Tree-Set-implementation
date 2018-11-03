@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <time.h>
 #include <set>
 using namespace std;
@@ -202,14 +203,143 @@ avl* delete_node(avl* root,long x)
 		return root;
 	}
 }
-void preOrder(struct avl *root) 
+void inOrder(struct avl *root,vector<long>* v) 
 { 
 	if(root==NULL)
 		return;
-	printf("%ld ", root->data); 
-    preOrder(root->left); 
-    preOrder(root->right); 
+	
+    inOrder(root->left,v);
+    v->push_back(root->data);
+    inOrder(root->right,v); 
  } 
+void Union(struct avl* root,struct avl* root1)
+{
+	vector<long> v;
+	inOrder(root,&v);
+	vector<long> v1;
+	inOrder(root1,&v1);
+	
+
+	long i=0,j=0;
+	vector<long> v3;
+	while(i<v.size() && j<v1.size())
+	{
+			if(v[i]==v1[j])
+			{
+				v3.push_back(v[i]);
+				i++;
+				j++;
+			}
+			else if(v[i]<v1[j])
+			{
+				v3.push_back(v[i]);
+				i++;
+			}
+			else if(v[i]>v1[j])
+			{
+				v3.push_back(v1[j]);
+				j++;
+			}
+	}
+	if(i<v.size())
+	{
+		while(i<v.size())
+		{
+			v3.push_back(v[i]);
+			i++;
+		}
+	}
+	else if(j<v1.size())
+	{
+		while(j<v1.size())
+		{
+			v3.push_back(v1[j]);
+			j++;
+		}
+	}
+	// cout << "union: "<<endl;
+	for(int h=0;h<v3.size();h++)
+	{
+		cout << v3[h] << " ";
+	}
+	cout << endl;
+	return; 
+}
+
+void intersection(struct avl* root,struct avl* root1)
+{
+	vector<long> v;
+	inOrder(root,&v);
+	vector<long> v1;
+	inOrder(root1,&v1);
+	long i=0,j=0;
+	vector<long> v3;
+	while(i<v.size() && j<v1.size())
+	{
+			if(v[i]==v1[j])
+			{
+				v3.push_back(v[i]);
+				i++;
+				j++;
+			}
+			else if(v[i]<v1[j])
+			{
+				i++;
+			}
+			else if(v[i]>v1[j])
+			{
+				j++;
+			}
+	}
+	for(int h=0;h<v3.size();h++)
+	{
+		cout << v3[h] << " ";
+	}
+	cout << endl;
+	return; 
+}
+void difference(struct avl* root,struct avl* root1)
+{
+	vector<long> v;
+	inOrder(root,&v);
+	vector<long> v1;
+	inOrder(root1,&v1);
+	long i=0,j=0;
+	vector<long> v3;
+	while(i<v.size() && j<v1.size())
+	{
+			if(v[i]==v1[j])
+			{
+				//v3.push_back(v[i]);
+				i++;
+				j++;
+			}
+			else if(v[i]<v1[j])
+			{
+				v3.push_back(v[i]);
+				i++;
+			}
+			else if(v[i]>v1[j])
+			{
+				j++;
+			}
+	}
+	if(i<v.size())
+	{
+		while(i<v.size())
+		{
+			v3.push_back(v[i]);
+			i++;
+		}
+	}
+	for(int h=0;h<v3.size();h++)
+	{
+		cout << v3[h] << " ";
+	}
+	cout << endl;
+	return; 
+
+}
 int main() {
     // long n;
     // cout << "enter the no. of nodes to be inserted:"; 
@@ -225,27 +355,42 @@ int main() {
     // 	cin >> x;
     // 	root=insert(root,x);
     // }
-    root=insert(root,9);
-    root=insert(root,5);
+    root=insert(root,7);
+    root=insert(root,3);
+    root=insert(root,18);
     root=insert(root,10);
-    root=insert(root,0);
     root=insert(root,6);
     root=insert(root,11);
     root=insert(root,-1);
     root=insert(root,1);
     root=insert(root,2);
-    cout << "preorder after insertion: "<<endl;
-    preOrder(root);
-    cout << endl;
-    root=delete_node(root,10);
-    cout << "preorder after deletion of 10: "<<endl;
-    preOrder(root);
-    cout << endl;
-
+    
+    // cout << "preorder after insertion: "<<endl;
+    // preOrder(root,v);
+    // cout << endl;
+    // root=delete_node(root,10);
+    // cout << "preorder after deletion of 10: "<<endl;
+    // inOrder(root,v);
+    // cout << endl;
+    struct avl *root1=NULL;
+    root1=insert(root1,2);
+    root1=insert(root1,1);
+    root1=insert(root1,4);
+    root1=insert(root1,5);
+    root1=insert(root1,9);
+    root1=insert(root1,3);
+    root1=insert(root1,6);
+    root1=insert(root1,7);
     // root=insert(root,2);
     // root=insert(root,6);
     // root=insert(root,13);
     
+
+    Union(root,root1);
+  
+    intersection(root,root1);
+    
+    difference(root,root1);
     // time_t sp=clock()-b;
     // cout << "time taken by AVL="<<sp<<endl;
 
