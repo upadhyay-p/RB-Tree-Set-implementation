@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <limits.h>
-// #include <bits/stdc++.h> 
 #include "avl_Set.cpp"
 
 using namespace std;
@@ -24,19 +23,15 @@ void shortest_path()
 		visited[e]=1;
 		for(int i=0;i<g[e].size();i++)
 		{
-			// cout<<"for loop of list "<<i+1<<endl;
 			if(visited[g[e][i].first]==0)
 			{				
-				if(dist[e]+g[e][i].second<dist[g[e][i].first])
+				if(dist[e]+g[e][i].second<dist[g[e][i].first]) //if newly found distance is less 
+															  //then already know distance then update distance[]
 				{
-					cout<<"g[e][i].second="<<g[e][i].second<<endl;
-					cout<<endl;
-					cout << "pair pushed: "<< dist[g[e][i].first] << "---" << g[e][i].first<<"---original: "<<dist[g[e][i].first] <<endl;
-					cout<<endl;
+					
 					dist[g[e][i].first]=dist[e]+g[e][i].second;
-					cout << "after pair pushed: "<< dist[g[e][i].first] << "---" << g[e][i].first<<endl;
-					cout<<endl;
-					s.insert({dist[g[e][i].first],g[e][i].first});
+					
+					s.insert({dist[g[e][i].first],g[e][i].first});//insert the new pair to set
 					
 				}
 			}
@@ -48,26 +43,32 @@ void shortest_path()
 
 int main(){
 	int n,e;
-	cin >>n>>e;
+	
+	cin >>n;//nodes
+	
+	cin>>e;//edges
+	
 	for(int i=1;i<=e;i++)
 	{
-		int x,y,z;
-		cin >> x>>y>>z;
+		int x,y,z; //from vertex x to vertex y edge has weight=z
+		cin >> x >> y >> z;
 		
 		g[y].push_back({x,z});
 		g[x].push_back({y,z});
 	}
-	dist[1]=0;
+	//assume source vertex to be 1
+	dist[1]=0;//from source to source distance=0 
 	for(int i=2;i<=n;i++)
 	{
-		dist[i]=INT_MAX;
+		dist[i]=INT_MAX;//initialize all other distances to infinity
 	}
 	for(int i=1;i<=n;i++)
 	{
-		visited[i]=0;
+		visited[i]=0;//initialize visited of every vertex to zero
 	}
 	shortest_path();
-	for(int i=1;i<=n;i++)
+	// cout << "output"<<endl;
+	for(int i=2;i<=n;i++)
 	{
 		cout << dist[i] << " ";
 	}
