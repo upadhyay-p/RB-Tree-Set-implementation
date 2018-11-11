@@ -4,9 +4,9 @@
 #include "avl_Set.cpp"
 
 using namespace std;
-vector <pair<int,int>> g[1000];
-int dist[1000];
-int visited[1000];
+vector <pair<int,int>> g[1000000];
+int dist[1000000];
+int visited[1000000];
 void shortest_path()
 {
 	
