@@ -153,7 +153,7 @@ public:
 				(*root)->left->bal_height=balfactor_cal((*root)->left);
 				//after every insertion check for rotation at the changed nodes
 				(*root)=rotation((*root),x);
-				(*root)->left=rotation((*root)->left,x);
+				(*root)->left=rotation((*root)->left,x); 
 				
 				return (*root);
 			}
