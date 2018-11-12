@@ -88,7 +88,7 @@ void moveDown(node<T>* x, node<T>* new_parent){
 template <typename T2>
 void right_rotate(node<T2> ** root, node<T2> * g_parent){
 	node<T2>* new_parent = g_parent->left;
-	if(g_parent == *root)
+	if(g_parent == *root) 
 		*root=new_parent;
 	moveDown(g_parent, new_parent);
 	g_parent->left = new_parent->right;
