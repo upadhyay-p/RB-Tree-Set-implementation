@@ -52,8 +52,6 @@ int main(){
 	{
 		int x,y,z; //from vertex x to vertex y edge has weight=z
 		cin >> x >> y >> z;
-		
-		g[y].push_back({x,z});
 		g[x].push_back({y,z});
 	}
 	//assume source vertex to be 1
