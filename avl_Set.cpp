@@ -20,7 +20,7 @@ int max_h(int x, int y)//give max value amongst x and y
 	else
 		max=y;
 	return max;
-}
+} 
 template <typename T>
 int height(avl<T>* root)//find height of tree
 {
